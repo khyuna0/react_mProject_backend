@@ -1,5 +1,14 @@
 package com.khyuna0.mProject.controller;
 
-public class UserController {
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.khyuna0.mProject.repository.UserRepository;
+
+public class UserController {
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	
+	
 }

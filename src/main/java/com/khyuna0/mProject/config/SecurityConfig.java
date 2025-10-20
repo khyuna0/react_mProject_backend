@@ -65,7 +65,9 @@ public class SecurityConfig {
 	           .logout(logout -> logout
 	               .logoutUrl("/api/auth/logout")
 	               .logoutSuccessHandler((req, res, auth) -> res.setStatus(HttpServletResponse.SC_OK))
-	           ); 
+	           )
+	           .anonymous(anonymous -> anonymous.disable()); // 로그아웃 후 user -> null 값으로 변경
+	           ; 
 	       return http.build();
 	   }
     @Bean
