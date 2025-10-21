@@ -6,8 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.khyuna0.mProject.entity.FreeBoard;
@@ -41,4 +43,35 @@ public class FreeBoardController {
 			return ResponseEntity.status(404).body("해당 게시물을 찾을 수 없습니다.");
 		}
 	}
+	
+	// 게시판 글 쓰기
+	@PostMapping
+	
+	
+	
+	// 게시판 글 수정
+	
+	
+	
+	
+	// 게시판 글 삭제
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> DeleteById(@PathVariable("id") Long id) { 
+		Optional<FreeBoard> board = freeBoardRepository.findById(id);
+		
+		//TODO : 게시글 권한 확인 추가
+		
+		
+		if(!board.isPresent()) {
+			return ResponseEntity.status(404).body("해당 게시물을 찾을 수 없습니다.");
+		}
+		
+		freeBoardRepository.deleteById(id);
+		return ResponseEntity.ok().body("삭제 성공");
+		
+	}
+	
+	
+	
+	// 게시판 글 검색
 }
