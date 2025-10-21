@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.khyuna0.mProject.dto.BoardRequestDto;
 import com.khyuna0.mProject.entity.FreeBoard;
@@ -49,7 +48,11 @@ public class FreeBoardController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getById(@PathVariable("id") Long id) { 
 		Optional<FreeBoard> board = freeBoardRepository.findById(id);
+		FreeBoard freeBoard = board.get();
+		freeBoard.setHit(freeBoard.getHit()+1); // 조회수
+				
 		if(board.isPresent()) {
+			freeBoardRepository.save(freeBoard); 
 			return ResponseEntity.ok(board.get());
 		} else {
 			return ResponseEntity.status(404).body("해당 게시물을 찾을 수 없습니다.");
@@ -62,7 +65,7 @@ public class FreeBoardController {
 		
 		// 게시글 작성 권한 확인 (로그아웃 상태 방어)
 		if (auth == null) {
-			return ResponseEntity.badRequest().body("로그아웃 상태에서는 접근 불가능합니다.");
+		return ResponseEntity.badRequest().body("로그아웃 상태에서는 접근 불가능합니다.");
 		}
 	
 		if(bindingResult.hasErrors()) {
@@ -85,10 +88,8 @@ public class FreeBoardController {
 		
 		return ResponseEntity.ok().body("글쓰기 성공");
 	}
-	
-	
+		
 	// 게시판 글 수정
-	
 	@PostMapping("/{id}")
 	public ResponseEntity<?> Edit(@PathVariable("id") Long id, @RequestBody @Valid BoardRequestDto boardDto, BindingResult bindingResult, Authentication auth) {
 		
@@ -101,7 +102,7 @@ public class FreeBoardController {
 		if (auth == null) { // 게시글 작성 권한 확인 (로그아웃 상태 방어)
 			return ResponseEntity.badRequest().body("로그아웃 상태에서는 접근 불가능합니다.");
 		}
-		// (수정 요청 유저만 수정 가능) 
+		// 해당 글 작성 유저만 권한 부여
 		if (!board.get().getAuthor().getUsername().equals(auth.getName())) {
 			return ResponseEntity.badRequest().body("해당 글에 대한 권한이 없습니다.");
 		}
@@ -123,17 +124,20 @@ public class FreeBoardController {
 		
 		return ResponseEntity.ok().body("수정 성공");
 	}
-	
-	
-	
-	
+			
 	// 게시판 글 삭제
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> DeleteById(@PathVariable("id") Long id) { 
+	public ResponseEntity<?> DeleteById(@PathVariable("id") Long id , Authentication auth) { 
 		Optional<FreeBoard> board = freeBoardRepository.findById(id);
 		
-		//TODO : 게시글 권한 확인 추가
+		if (auth == null) {
+			return ResponseEntity.badRequest().body("로그아웃 상태에서는 접근 불가능합니다.");
+			}
 		
+		// 해당 글 작성 유저만 권한 부여
+		if (!board.get().getAuthor().getUsername().equals(auth.getName())) {
+			return ResponseEntity.badRequest().body("해당 글에 대한 권한이 없습니다.");
+		}
 		
 		if(!board.isPresent()) {
 			return ResponseEntity.status(404).body("해당 게시물을 찾을 수 없습니다.");
@@ -144,7 +148,4 @@ public class FreeBoardController {
 		
 	}
 	
-	
-	
-	// 게시판 글 검색
 }

@@ -10,13 +10,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BoardRequestDto { // vaild용
+public class CommentRequsetDto {// vaild용
 
-	@NotBlank ( message = "제목을 입력해 주세요.")
-	@Size( min = 1, message = "글 제목은 최소 1글자 이상이어야 합니다.")
-	private String title; // 글 제목
-	
 	@NotBlank ( message = "내용을 입력해 주세요.")
-	@Size( min = 1, message = "글 내용은 최소 1글자 이상이어야 합니다.")
+	@Size( min = 1, message = "댓글 내용은 최소 1글자 이상이어야 합니다.")
 	private String content; // 글 내용
 }

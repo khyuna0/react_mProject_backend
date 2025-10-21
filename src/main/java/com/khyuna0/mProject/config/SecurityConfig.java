@@ -30,7 +30,7 @@ public class SecurityConfig {
 	                       "/", 
 	                       "/index.html", 
 	                       "/login", 
-	                       "/join", 
+	                       "/signup",
 	                       "/board/**", 
 	                       "/static/**")
 	                 .permitAll()                   

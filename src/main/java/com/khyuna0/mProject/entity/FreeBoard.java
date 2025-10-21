@@ -40,7 +40,6 @@ public class FreeBoard { // 자유 게시판
 	private LocalDateTime createDate;
 	
 	@Column
-	@NotBlank
 	private int hit; // 글 조회수
 	
 	@ManyToOne

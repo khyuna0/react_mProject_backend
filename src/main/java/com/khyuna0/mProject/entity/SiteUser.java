@@ -19,15 +19,17 @@ import lombok.Setter;
 public class SiteUser { // 회원 정보
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY )
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; // 유저 고유 회원 번호
 	
-	@Id
+	@Column
 	@NotBlank
 	private String username;
 	
 	@Column
 	@NotBlank
 	private String password;
+	
+	
 	
 }

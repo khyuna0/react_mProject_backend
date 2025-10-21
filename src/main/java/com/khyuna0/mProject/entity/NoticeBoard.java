@@ -23,7 +23,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class NoticeBoard { // 공지 게시판
 	
-	@Id
+	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private Long id; // 게시판 고유 회원 번호
 	
