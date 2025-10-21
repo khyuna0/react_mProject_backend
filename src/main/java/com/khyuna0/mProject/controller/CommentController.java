@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.khyuna0.mProject.dto.CommentRequsetDto;
 import com.khyuna0.mProject.entity.Comment;
-import com.khyuna0.mProject.entity.FreeBoard;
 import com.khyuna0.mProject.entity.SiteUser;
 import com.khyuna0.mProject.repository.CommentRepository;
 import com.khyuna0.mProject.repository.FreeBoardRepository;
@@ -78,18 +77,57 @@ public class CommentController {
 		
 		// 댓글 삭제
 		@DeleteMapping("/{id}")
-		public ResponseEntity<?> DeleteById(@PathVariable("id") Long id) { 
+		public ResponseEntity<?> DeleteById(@PathVariable("id") Long id, Authentication auth) { 
 			Optional<Comment> comment = commentRepository.findById(id);
 			
-			//TODO : 게시글 권한 확인 추가
-	
+			if (auth == null) {
+				return ResponseEntity.badRequest().body("로그아웃 상태에서는 접근 불가능합니다.");
+				}
+			
+			// 해당 글 작성 유저만 권한 부여
+			if (!comment.get().getAuthor().getUsername().equals(auth.getName())) {
+				return ResponseEntity.badRequest().body("해당 글에 대한 권한이 없습니다.");
+			}
 			
 			if(!comment.isPresent()) {
 				return ResponseEntity.status(404).body("해당 게시물을 찾을 수 없습니다.");
 			}
 			
-			freeBoardRepository.deleteById(id);
+			commentRepository.deleteById(id);
 			return ResponseEntity.ok().body("삭제 성공");
 			
+		}
+		
+		// 댓글 수정
+		@PostMapping
+		public ResponseEntity<?> Edit(@PathVariable("id") Long id, @RequestBody @Valid CommentRequsetDto commentDto,
+				BindingResult bindingResult, Authentication auth) {
+			
+			Optional<Comment> opcomment = commentRepository.findById(id);
+			
+			// 게시글 작성 권한 확인 (로그아웃 상태 방어)
+			if (auth == null) {
+			return ResponseEntity.badRequest().body("로그아웃 상태에서는 접근 불가능합니다.");
+			}
+			
+			// 해당 글 작성 유저만 권한 부여
+			if (!opcomment.get().getAuthor().getUsername().equals(auth.getName())) {
+				return ResponseEntity.badRequest().body("해당 글에 대한 권한이 없습니다.");
+			}
+		
+			if(bindingResult.hasErrors()) { // 유효성 체크
+				Map<String, String>  errors = new HashMap<>();
+				bindingResult.getFieldErrors().forEach(
+					err -> {
+					errors.put(err.getField(), err.getDefaultMessage());
+				});
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+			}
+			Comment comment = opcomment.get();
+			comment.setFreeBoard(freeBoardRepository.findById(id).get());
+			comment.setContent(commentDto.getContent());
+			
+			return ResponseEntity.ok().body("댓글 수정 성공");
+		
 		}
 }

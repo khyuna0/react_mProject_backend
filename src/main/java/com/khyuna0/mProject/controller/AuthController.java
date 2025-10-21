@@ -2,11 +2,9 @@ package com.khyuna0.mProject.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -46,7 +44,6 @@ public class AuthController {
 		
 		if(bindingResult.hasErrors()) { //참이면 유효성 체크 실패->error 발생
 			Map<String, String> errors = new HashMap<>();
-
 			bindingResult.getFieldErrors().forEach(
 				err -> {
 					errors.put(err.getField(), err.getDefaultMessage());					
@@ -57,22 +54,18 @@ public class AuthController {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("비밀번호 불일치");
 			}
 			
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("기타 에러");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
 		}
-		
-		if(userRepository.findByUsername(req.getUsername()).isPresent()) { // 아이디 중복 여부 검사
-			
-			Map<String, String> error = new HashMap<>();
-			bindingResult.getFieldErrors().forEach(
-				err -> {
-					error.put("아이디 중복", "이미 존재하는 아이디입니다.");					
-				}
-			);
-			return ResponseEntity.badRequest().body("이미 존재하는 아이디입니다.");
-		}
-
 		SiteUser siteUser = new SiteUser();
 		siteUser.setUsername(req.getUsername());
+		siteUser.setPassword(req.getPassword());
+		
+		if(userRepository.findByUsername(siteUser.getUsername()).isPresent()) { // 아이디 중복 여부 검사
+			
+			Map<String, String> error = new HashMap<>();
+			error.put("아이디 중복", "이미 존재하는 아이디입니다.");					
+			return ResponseEntity.badRequest().body(error);
+		}
 		siteUser.setPassword(passwordEncoder.encode(req.getPassword()));
 		userRepository.save(siteUser);
 		
@@ -84,9 +77,7 @@ public class AuthController {
 	
 	@GetMapping("/me")
 	public ResponseEntity<?> getusername(Authentication auth) {
-		Optional<SiteUser> user = userRepository.findByUsername(auth.getName());
-		SiteUser u = user.get();
-		return ResponseEntity.ok().body(u.getUsername());
+		return ResponseEntity.ok().body(Map.of("username",auth.getName()));
 	}
 	
 }

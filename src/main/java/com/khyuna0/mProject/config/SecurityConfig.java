@@ -31,13 +31,16 @@ public class SecurityConfig {
 	                       "/index.html", 
 	                       "/login", 
 	                       "/signup",
-	                       "/board/**", 
+	                       "/board/**",
+	                       "/notice",
 	                       "/static/**")
 	                 .permitAll()                   
 	                   // 읽기 API는 로그인 없이 허용
 	                   .requestMatchers(
 	                         "/api/board", 
-	                         "/api/board/**", 
+	                         "/api/board/**",
+	                         "/api/notice",
+	                         "/api/notice/**",
 	                         "/api/comments", 
 	                         "/api/comments/**")
 	                   .permitAll()
@@ -46,7 +49,10 @@ public class SecurityConfig {
 	                   .requestMatchers(
 	                         "/api/board/write", 
 	                         "/api/board/update/**", 
-	                         "/api/board/delete/**")
+	                         "/api/board/delete/**",
+	                         "/api/notice/write", 
+	                         "/api/notice/update/**", 
+	                         "/api/notice/delete/**")
 	                   .authenticated()
 	                   .requestMatchers(
 	                         "/api/comments/write", 
@@ -70,6 +76,7 @@ public class SecurityConfig {
 	           ; 
 	       return http.build();
 	   }
+	
     @Bean
     public PasswordEncoder passwordEncoder() {
     	return new BCryptPasswordEncoder();

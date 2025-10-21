@@ -15,7 +15,7 @@ import lombok.Setter;
 public class SiteUserRequestDto {
 
 	@NotBlank
-	@Size (min = 5, message = "아이디는 5글자 이상 입력해주세요")
+	@Size (min = 5, message = "아이디는 3글자 이상 입력해주세요")
 	private String username;
 	
 	@NotBlank
