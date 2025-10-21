@@ -22,6 +22,10 @@ public class SiteUser { // 회원 정보
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private Long id; // 유저 고유 회원 번호
 	
+	@Id
+	@NotBlank
+	private String username;
+	
 	@Column
 	@NotBlank
 	private String password;
