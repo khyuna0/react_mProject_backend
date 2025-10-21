@@ -41,14 +41,14 @@ public class CommentController {
 	private UserRepository userRepository;
 	
 	// 모든 댓글 목록 불러오기
-	@GetMapping
+	@GetMapping("/{id}")
 	public ResponseEntity<?> getFreeBoardComments(@PathVariable("id") Long id) {
 		List<Comment> commentlist = commentRepository.findByBoard(freeBoardRepository.findById(id).get());
 		return ResponseEntity.ok(commentlist); 
 	}
 	
 	//  댓글 쓰기
-		@PostMapping
+		@PostMapping("/{id}")
 		public ResponseEntity<?> write(@PathVariable("id") Long id, @RequestBody @Valid CommentRequsetDto commentDto,
 				BindingResult bindingResult, Authentication auth) {
 			
@@ -68,7 +68,7 @@ public class CommentController {
 			Optional<SiteUser> user = userRepository.findByUsername(auth.getName());
 			Comment comment = new Comment();
 			comment.setAuthor(user.get());
-			comment.setFreeBoard(freeBoardRepository.findById(id).get());
+			comment.setBoard(freeBoardRepository.findById(id).get());
 			comment.setContent(commentDto.getContent());
 			
 			return ResponseEntity.ok().body("댓글 작성 성공");
@@ -99,7 +99,7 @@ public class CommentController {
 		}
 		
 		// 댓글 수정
-		@PostMapping
+		@PostMapping("/Edit/{id}")
 		public ResponseEntity<?> Edit(@PathVariable("id") Long id, @RequestBody @Valid CommentRequsetDto commentDto,
 				BindingResult bindingResult, Authentication auth) {
 			
@@ -124,7 +124,7 @@ public class CommentController {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
 			}
 			Comment comment = opcomment.get();
-			comment.setFreeBoard(freeBoardRepository.findById(id).get());
+			comment.setBoard(freeBoardRepository.findById(id).get());
 			comment.setContent(commentDto.getContent());
 			
 			return ResponseEntity.ok().body("댓글 수정 성공");

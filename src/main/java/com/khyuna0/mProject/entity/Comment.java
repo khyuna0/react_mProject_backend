@@ -44,5 +44,5 @@ public class Comment {
 	
 	@ManyToOne (fetch = FetchType.LAZY)
 	@JsonIgnore
-	private FreeBoard freeBoard;
+	private FreeBoard board;
 }
