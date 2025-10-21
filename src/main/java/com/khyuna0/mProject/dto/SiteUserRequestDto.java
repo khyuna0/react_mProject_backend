@@ -14,8 +14,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SiteUserDto {
-	
+public class SiteUserRequestDto {
+
 	@NotBlank
 	@Length (min = 5, message = "아이디는 5글자 이상 입력해주세요")
 	private Long id;
