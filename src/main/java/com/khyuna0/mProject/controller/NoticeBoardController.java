@@ -2,11 +2,14 @@ package com.khyuna0.mProject.controller;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.khyuna0.mProject.dto.NoticeboardRequestDto;
 import com.khyuna0.mProject.entity.NoticeBoard;
@@ -37,12 +41,27 @@ public class NoticeBoardController { // 공지 게시판 - admin만 작성 가�
 	@Autowired
 	private UserRepository userRepository;
 	
-	// 게시판 모든 글 목록 (페이징 처리 x)
-		@GetMapping
-		public ResponseEntity<?> getBoard() {
-			List<NoticeBoard> boardlist = noticeBoardRepository.findAll();
-			return ResponseEntity.ok(boardlist); 
+	@GetMapping
+	public ResponseEntity<?> getPagedBoard(@RequestParam(name= "page", defaultValue = "0") int page, 
+			@RequestParam(name = "size" , defaultValue = "10") int size) {
+		if(page < 0) {
+			page = 0;
 		}
+		if(size <=0 ) {
+			size = 10;
+		}
+		
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+		Page<NoticeBoard> pagedBoard = noticeBoardRepository.findAll(pageable);
+		
+		Map<String, Object> pagingMap = new HashMap<>();
+		pagingMap.put("posts", pagedBoard.getContent());
+		pagingMap.put("currentPage", pagedBoard.getNumber());
+		pagingMap.put("totalPages", pagedBoard.getTotalPages());
+		pagingMap.put("totalItems", pagedBoard.getTotalElements());
+		
+		return ResponseEntity.ok(pagingMap);
+	}
 		
 		// 아이디로 특정 게시판 글 불러오기
 		@GetMapping("/{id}")
@@ -81,7 +100,7 @@ public class NoticeBoardController { // 공지 게시판 - admin만 작성 가�
 			NoticeBoard board = new NoticeBoard();
 			board.setAuthor(user.get());
 			board.setTitle(boardDto.getTitle());
-			board.setContent(board.getContent());
+			board.setContent(boardDto.getContent());
 			board.setCreateDate(LocalDateTime.now());
 			board.setHit(0);
 			noticeBoardRepository.save(board);

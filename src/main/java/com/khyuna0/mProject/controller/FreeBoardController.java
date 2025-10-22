@@ -2,7 +2,6 @@ package com.khyuna0.mProject.controller;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -41,13 +40,6 @@ public class FreeBoardController {
 	
 	@Autowired
 	private UserRepository userRepository;
-	
-	// 게시판 모든 글 목록 (페이징 처리 x)
-//	@GetMapping
-//	public ResponseEntity<?> getBoard() {
-//		List<FreeBoard> boardlist = freeBoardRepository.findAll();
-//		return ResponseEntity.ok(boardlist); 
-//	}
 	
 	@GetMapping
 	public ResponseEntity<?> getPagedBoard(@RequestParam(name="page", defaultValue = "0") int page, 
@@ -88,7 +80,8 @@ public class FreeBoardController {
 	
 	// 게시판 글 쓰기
 	@PostMapping
-	public ResponseEntity<?> write(@RequestBody @Valid BoardRequestDto boardDto, BindingResult bindingResult, Authentication auth) {
+	public ResponseEntity<?> write(@RequestBody @Valid BoardRequestDto boardDto, BindingResult bindingResult, 
+			Authentication auth) {
 		
 		// 게시글 작성 권한 확인 (로그아웃 상태 방어)
 		if (auth == null) {
@@ -108,7 +101,7 @@ public class FreeBoardController {
 		FreeBoard board = new FreeBoard();
 		board.setAuthor(user.get());
 		board.setTitle(boardDto.getTitle());
-		board.setContent(board.getContent());
+		board.setContent(boardDto.getContent());
 		board.setCreateDate(LocalDateTime.now());
 		board.setHit(0);
 		freeBoardRepository.save(board);

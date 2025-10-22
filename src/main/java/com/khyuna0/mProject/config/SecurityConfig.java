@@ -28,36 +28,43 @@ public class SecurityConfig {
 	           .authorizeHttpRequests(auth -> auth
 	                 .requestMatchers(
 	                       "/", 
-	                       "/index.html", 
+	                       "/index.html",
 	                       "/login", 
 	                       "/signup",
 	                       "/board/**",
-	                       "/notice",
-	                       "/static/**")
+	                       "/notice/**",
+	                       "/static/**"
+	                       )
 	                 .permitAll()                   
-	                   // 읽기 API는 로그인 없이 허용
-	                   .requestMatchers(
-	                         "/api/board", 
-	                         "/api/board/**",
-	                         "/api/notice",
-	                         "/api/notice/**",
-	                         "/api/comments", 
-	                         "/api/comments/**")
-	                   .permitAll()
-	                   
-	                   // 쓰기/수정/삭제 API는 인증 필요
-	                   .requestMatchers(
-	                         "/api/board/write", 
-	                         "/api/board/update/**", 
-	                         "/api/board/delete/**",
-	                         "/api/notice/write", 
-	                         "/api/notice/update/**", 
-	                         "/api/notice/delete/**")
-	                   .authenticated()
-	                   .requestMatchers(
-	                         "/api/comments/write", 
-	                         "/api/comments/delete/**")
-	                   .authenticated()           
+//	                   // 읽기 API는 로그인 없이 허용
+//	                   .requestMatchers(
+//	                         "/api/board", 
+//	                         "/api/board/**",
+//	                         "/api/notice",
+//	                         "/api/notice/**",
+//	                         "/api/comments", 
+//	                         "/api/comments/**")
+//	                   .permitAll()
+//	                   
+//	                   // 쓰기/수정/삭제 API는 인증 필요
+//	                   .requestMatchers(
+//	                         "/api/board/write", 
+//	                         "/api/board/update/**", 
+//	                         "/api/board/delete/**",
+//	                         "/api/notice/write", 
+//	                         "/api/notice/update/**", 
+//	                         "/api/notice/delete/**")
+//	                   .authenticated()
+//	                   .requestMatchers(
+//	                         "/api/comments/write", 
+//	                         "/api/comments/delete/**")
+//	                   .authenticated()     
+	                 
+	                 .requestMatchers(
+	                          "/api/**",
+	                          "/api/comments/**"
+	                	
+	                		 ).permitAll()
 	               .anyRequest().authenticated()
 	           )         
 	           .formLogin(login -> login    

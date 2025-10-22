@@ -20,6 +20,7 @@ import com.khyuna0.mProject.dto.SiteUserRequestDto;
 import com.khyuna0.mProject.entity.SiteUser;
 import com.khyuna0.mProject.repository.UserRepository;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 @Controller
@@ -74,10 +75,13 @@ public class AuthController {
 	}
 	
 	// 현재 로그인한 username 가져오기
-	
 	@GetMapping("/me")
-	public ResponseEntity<?> getusername(Authentication auth) {
-		return ResponseEntity.ok().body(Map.of("username",auth.getName()));
-	}
+	   public ResponseEntity<?> getCurrentUser(Authentication authentication) {
+	       if (authentication == null || !authentication.isAuthenticated()) {
+	           return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED)
+	                   .body(Map.of("error", "로그인되지 않음"));
+	       }
+	       return ResponseEntity.ok(Map.of("username", authentication.getName()));
+	   }
 	
 }

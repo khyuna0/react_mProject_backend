@@ -1,15 +1,19 @@
 package com.khyuna0.mProject.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,4 +48,7 @@ public class FreeBoard { // 자유 게시판
 	
 	@ManyToOne
 	private SiteUser author; // siteUser 조인, N : 1 , 게시판 글쓴이
+	
+	@OneToMany(cascade = CascadeType.ALL , orphanRemoval = true)
+	private List<Comment> comments = new ArrayList<>();
 }
