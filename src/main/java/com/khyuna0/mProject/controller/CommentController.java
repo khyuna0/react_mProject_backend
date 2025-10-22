@@ -47,6 +47,18 @@ public class CommentController {
 		return ResponseEntity.ok(commentlist); 
 	}
 	
+	// 댓글 아이디로 댓글 하나 불러오기
+	@GetMapping("view/{id}")
+	public ResponseEntity<?> getCommentById(@PathVariable("id") Long id) {
+		Optional<Comment> opComment = commentRepository.findById(id);
+		if(opComment.isEmpty()) {
+			return ResponseEntity.status(404).body("해당 댓글은 없는 댓글입니다.");
+		}
+		return ResponseEntity.ok(opComment.get()); 
+	}
+	
+	
+	
 	//  댓글 쓰기
 		@PostMapping("/{id}")
 		public ResponseEntity<?> write(@PathVariable("id") Long id, @RequestBody @Valid CommentRequsetDto commentDto,
@@ -99,7 +111,7 @@ public class CommentController {
 		}
 		
 		// 댓글 수정
-		@PostMapping("/Edit/{id}")
+		@PostMapping("/edit/{id}")
 		public ResponseEntity<?> Edit(@PathVariable("id") Long id, @RequestBody @Valid CommentRequsetDto commentDto,
 				BindingResult bindingResult, Authentication auth) {
 			
