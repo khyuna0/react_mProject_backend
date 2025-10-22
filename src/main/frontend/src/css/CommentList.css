@@ -1,0 +1,145 @@
+/* CommentList.css - 밝은 테마 + 깔끔한 카드형 스타일 */
+
+.comment-section {
+  margin-top: 40px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 20px 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* 댓글 입력 폼 */
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.comment-form textarea {
+  width: 100%;
+  min-height: 80px;
+  resize: vertical;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background-color: #f8fafc;
+  font-size: 15px;
+  color: #1e293b;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.comment-form textarea::placeholder {
+  color: #94a3b8;
+}
+
+.comment-form textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.comment-form button {
+  align-self: flex-end;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.comment-form button:hover {
+  background-color: #3b82f6;
+  transform: translateY(-1px);
+}
+
+/* 댓글 리스트 */
+.comment-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #e2e8f0;
+}
+
+.comment-item {
+  padding: 16px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.comment-empty {
+  text-align: center;
+  color: #94a3b8;
+  padding: 20px 0;
+}
+
+/* 댓글 내용 영역 */
+.comment-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.comment-author {
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.comment-content {
+  font-size: 15px;
+  color: #1e293b;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.comment-date {
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+/* 수정/삭제 버튼 */
+.comment-actions {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+.comment-actions .btn-edit,
+.comment-actions .btn-delete {
+  border: none;
+  border-radius: 5px;
+  padding: 6px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.comment-actions .btn-edit {
+  background-color: #2563eb;
+  color: #fff;
+}
+
+.comment-actions .btn-edit:hover {
+  background-color: #3b82f6;
+  transform: translateY(-1px);
+}
+
+.comment-actions .btn-delete {
+  background-color: #e11d48;
+  color: #fff;
+}
+
+.comment-actions .btn-delete:hover {
+  background-color: #f43f5e;
+  transform: translateY(-1px);
+}
+
+/* 반응형 */
+@media (max-width: 480px) {
+  .comment-section {
+    padding: 16px;
+  }
+}

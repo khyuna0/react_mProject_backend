@@ -1,0 +1,134 @@
+/* Board.css – 페이징 포함, 흰 배경 + thead만 어두운 톤, 폭 1200px */
+
+.board-container {
+  max-width: 1200px;      /* 인트로 섹션과 동일 폭 */
+  margin: 60px auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.boardList-wrapper {
+  background: #fff;       /* 본문 흰색 유지 */
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+
+/* 테이블 기본 */
+.board-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.board-table th,
+.board-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: center;
+  word-break: keep-all;
+  color: #0f172a;
+}
+
+/* thead만 어둡게 */
+.boardList-thead th {
+  background: #0f172a;    /* 짙은 남색 */
+  color: #f8fafc;
+  font-weight: 600;
+}
+
+/* 본문 hover */
+.boardList-tbody tr:hover td {
+  background: #f8fafc;
+}
+
+/* 제목 셀 클릭 가능 표시 */
+.click-title {
+  cursor: pointer;
+  color: #1d4ed8;
+  text-align: left;
+}
+.click-title:hover {
+  text-decoration: underline;
+}
+
+/* 하단 버튼 영역 */
+.board-btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 14px 16px;
+  background: #fff;
+  border-top: 1px solid #e5e7eb;
+}
+
+.board-write-btn {
+  padding: 8px 16px;
+  background: #2563eb;
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color .2s, transform .1s;
+}
+.board-write-btn:hover {
+  background: #3b82f6;
+  transform: translateY(-1px);
+}
+
+/* 페이징 */
+.pagination {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 16px;
+  border-top: 1px solid #e5e7eb;
+  background: #fff;
+}
+
+.pagination button {
+  min-width: 36px;
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #111827;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color .15s, color .15s, border-color .15s, transform .1s;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+}
+
+.pagination button:disabled {
+  cursor: not-allowed;
+  opacity: .5;
+}
+
+.pagination .active {
+  background: #0f172a;     /* 활성 페이지: 네이비 */
+  color: #f8fafc;
+  border-color: #0f172a;
+}
+
+/* 반응형 */
+@media (max-width: 600px) {
+  .board-table th,
+  .board-table td {
+    padding: 10px;
+    font-size: 14px;
+  }
+  .board-write-btn {
+    width: 100%;
+  }
+  .pagination {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+}

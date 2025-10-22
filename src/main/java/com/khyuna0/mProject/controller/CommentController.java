@@ -83,6 +83,8 @@ public class CommentController {
 			comment.setBoard(freeBoardRepository.findById(id).get());
 			comment.setContent(commentDto.getContent());
 			
+			commentRepository.save(comment);
+			
 			return ResponseEntity.ok().body("댓글 작성 성공");
 		
 		}

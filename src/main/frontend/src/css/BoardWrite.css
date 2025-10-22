@@ -1,0 +1,105 @@
+/* BoardWrite.css */
+
+.board-write-wrapper {
+  max-width: 640px;
+  margin: 40px auto;
+  padding: 24px;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.board-write-wrapper h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.board-write-wrapper form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.board-write-wrapper label {
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 4px;
+}
+
+.board-write-wrapper select,
+.board-write-wrapper input,
+.board-write-wrapper textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.board-write-wrapper select:focus,
+.board-write-wrapper input:focus,
+.board-write-wrapper textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
+  outline: none;
+}
+
+.board-write-wrapper textarea {
+  resize: vertical;
+  min-height: 180px;
+  line-height: 1.4;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-group button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-group button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-group button[type="submit"]:hover {
+  background-color: #0069d9;
+}
+
+.btn-group button[type="reset"] {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.btn-group button[type="reset"]:hover {
+  background-color: #ccc;
+}
+
+.btn-group button:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 480px) {
+  .board-write-wrapper {
+    padding: 16px;
+  }
+
+  .btn-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

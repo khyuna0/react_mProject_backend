@@ -1,0 +1,102 @@
+/* 컨테이너 */
+.comment-edit-box {
+  max-width: 600px;
+  margin: 80px auto;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 24px 28px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+/* 제목 */
+.edit-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+/* 폼 */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 텍스트 입력창 */
+.edit-textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 12px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.edit-textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
+}
+
+/* 버튼 묶음 */
+.edit-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* 버튼 공통 */
+.edit-buttons button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.05s;
+}
+
+/* 저장 버튼 */
+.btn-save {
+  background-color: #007bff;
+  color: #fff;
+}
+.btn-save:hover {
+  background-color: #0069d9;
+}
+
+/* 취소 버튼 */
+.btn-cancel {
+  background-color: #e9ecef;
+  color: #333;
+}
+.btn-cancel:hover {
+  background-color: #d6d8db;
+}
+
+/* 클릭 효과 */
+.edit-buttons button:active {
+  transform: scale(0.97);
+}
+
+/* 반응형 */
+@media (max-width: 480px) {
+  .comment-edit-box {
+    width: 90%;
+    margin: 40px auto;
+    padding: 20px;
+  }
+
+  .edit-buttons {
+    flex-direction: column;
+  }
+
+  .edit-buttons button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,55 @@
+.footer {
+  background-color: #0f172a; /* 짙은 남색톤 */
+  color: #94a3b8; /* 은은한 회색 텍스트 */
+  padding: 24px 0;
+  font-size: 14px;
+}
+
+.footer-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-brand {
+  font-weight: 700;
+  font-size: 18px;
+  color: #f1f5f9;
+}
+
+.footer-nav a {
+  color: #94a3b8;
+  margin-left: 16px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-nav a:hover {
+  color: #ffffff;
+}
+
+@media (max-width: 640px) {
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .footer-nav a {
+    margin: 0 8px;
+  }
+}
+
+.footer {
+  /* position: fixed; */
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #0f172a;
+  color: #94a3b8;
+  padding: 16px 0;
+  text-align: center;
+}

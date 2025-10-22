@@ -1,0 +1,75 @@
+.home-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  color: #f1f5f9;
+}
+
+/* 소개 섹션 */
+.intro-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  background-color: #0f172a; /* 푸터·네비바와 톤 통일 */
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  margin-bottom: 60px;
+}
+
+.intro-text {
+  flex: 1;
+}
+
+.intro-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 16px;
+}
+
+.intro-sub {
+  color: #cbd5e1;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.intro-location {
+  font-weight: 600;
+  color: #60a5fa;
+  font-size: 1.1rem;
+}
+
+.intro-image img {
+  width: 200px;
+  height: auto;
+  border-radius: 12px;
+  background-color: #1e293b;
+  padding: 12px;
+}
+
+/* 게시판 영역 */
+.board-section {
+  margin-top: 20px;
+}
+
+.board-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #1e3a8a;
+}
+
+@media (max-width: 768px) {
+  .intro-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .intro-image img {
+    width: 160px;
+    margin-top: 16px;
+  }
+}
